@@ -52,7 +52,36 @@ class Forms extends React.Component {
     }
     if (this.state.Quantity.length > 8 || this.state.Count.length > 8) {
       Swal.fire("Count Should Not Be More Than 8 Digits");
+      return;
     }
+    const details = {
+        Time: this.state.Time,
+        Food: this.state.Food,
+        Quantity: this.state.Quantity,
+        Count: this.state.Count,
+        Location: this.state.Location,
+        Name: this.state.Name,
+      };
+    axios
+        .post("localhost:8080/", details)
+        .then((response) => {
+          if (response.data.message === "username") {
+            Swal.fire("Mail Id not Registered !!!");
+          } else if (response.data.message === "password") {
+            Swal.fire("Invalid/Mismatch Password :-(");
+          } else {
+            console.log("Logged IN");
+            localStorage.setItem("access_token", response.data.token);
+            localStorage.setItem("email", this.state.email);
+            console.log(localStorage);
+            this.props.history.push("/homepage");
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+          console.log(error.message);
+          Swal.fire("Login Failure, Try again after sometime");
+        });
    
   }
   render() {

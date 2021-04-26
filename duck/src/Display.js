@@ -48,9 +48,7 @@ class Display extends React.Component {
       <div className="container" style={{
             maxWidth: "1500px",
           }}>
-        <div
-          className="jumbotron mt-5 container-style"
-        >
+        <div className="jumbotron mt-5 container-style">
           <h1 className="text-center">Ducks Lives Matter</h1>
           <table
             id="items"
