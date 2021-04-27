@@ -1,6 +1,6 @@
 import React from "react";
-import { ListGroup, ListGroupItem } from "react-bootstrap";
-import img from "./duck.jpg";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 class Display extends React.Component {
   constructor(props) {
@@ -8,41 +8,32 @@ class Display extends React.Component {
     this.state = {
       items: [
         {
-          Name: "Aaru",
-          Time: "12:40",
-          Food: "Parotta",
-          Location: "Chennai",
-          Count: 24,
-          Quantity: 340,
-        },
-        {
-          Name: "Chari",
-          Time: "1:35",
-          Food: "Biriyani",
-          Location: "Coimbatore",
-          Count: 22,
-          Quantity: 530,
-        },
-        {
-          Name: "Kichu",
-          Time: "3:43",
-          Food: "Pongal",
-          Location: "Viruthunagar",
-          Count: 12,
-          Quantity: 330,
-        },
-        {
-          Name: "Ramu",
-          Time: "4:55",
-          Food: "Rat Food",
-          Location: "Burma",
-          Count: 5,
-          Quantity: 420,
+          Name: "",
+          Time: "",
+          Food: "",
+          Location: "",
+          Count: "",
+          Quantity: "",
         },
       ],
     };
   }
 
+  componentDidMount() {
+    axios
+        .get("https://freshworks-assignment.herokuapp.com/api/alldata")
+      .then((response) => {
+        if (response.data.length >0) {
+          Swal.fire(response.data.length+ " Record Displayed");
+          this.setState({
+            items: response.data,
+          })
+        }
+        })
+        .catch(function (error) {
+          Swal.fire("Failure, Try again after sometime");
+        });
+  }
   render() {
     return (
       <div className="container" style={{

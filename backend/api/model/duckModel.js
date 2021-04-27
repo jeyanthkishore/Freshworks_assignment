@@ -1,30 +1,29 @@
 const mongoose = require("mongoose");
 const userSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  name: {
+  Name: {
     type: String,
     required: true,
     },
-  location: {
+  Location: {
     type: String,
     required: true,
   },
-  time: {
+  Time: {
     type: String,
     required: true,
     },
-  count: {
+  Count: {
     type: Number,
     required: true,
     },
-  quantity: {
+  Quantity: {
     type: Number,
     required: true,
   },
-  food: {
+  Food: {
     type: String,
     required: true,
   },
-});
+}, { versionKey: false });
 
 module.exports = mongoose.model("duckInfo", userSchema);

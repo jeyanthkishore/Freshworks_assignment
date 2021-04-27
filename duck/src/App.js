@@ -2,7 +2,7 @@ import './App.css';
 import FrontPage from "./FrontPage";
 import Forms from "./Forms";
 import Display from "./Display";
-import {BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {HashRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   return (

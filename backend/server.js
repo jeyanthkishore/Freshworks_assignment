@@ -15,9 +15,10 @@ mongoose.connect(
 app.use(express.static(__dirname + "/build"));
 app.use(bodyParser.json());
 app.use(cors());
-app.use("/", duckRoute);
-
+app.use("/api", duckRoute);
 
 console.log("runnning server now");
+console.log(process.env.PORT);
 
 app.listen(process.env.PORT || 8080);
+

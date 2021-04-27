@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import "./Form.css";
-import img from "./duck.jpg";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 class Forms extends React.Component {
   
@@ -21,7 +21,7 @@ class Forms extends React.Component {
     this.formStyle = {
     borderRadius: "18px",
     padding: "20px",
-    width: "200px",
+    width: "300px",
     height: "15px",
   };
   }
@@ -30,7 +30,6 @@ class Forms extends React.Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    console.log(this.state);
   }
 
   handleClick(event) {
@@ -63,24 +62,14 @@ class Forms extends React.Component {
         Name: this.state.Name,
       };
     axios
-        .post("localhost:8080/", details)
-        .then((response) => {
-          if (response.data.message === "username") {
-            Swal.fire("Mail Id not Registered !!!");
-          } else if (response.data.message === "password") {
-            Swal.fire("Invalid/Mismatch Password :-(");
-          } else {
-            console.log("Logged IN");
-            localStorage.setItem("access_token", response.data.token);
-            localStorage.setItem("email", this.state.email);
-            console.log(localStorage);
-            this.props.history.push("/homepage");
-          }
+        .post("https://freshworks-assignment.herokuapp.com/api/save", details)
+      .then((response) => {
+          Swal.fire("Save Successfull !!!").then((response) => {
+            window.location.reload(false);
+          });
         })
         .catch(function (error) {
-          console.log(error);
-          console.log(error.message);
-          Swal.fire("Login Failure, Try again after sometime");
+          Swal.fire("Save Failure, Try again after sometime");
         });
    
   }
